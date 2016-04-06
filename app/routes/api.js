@@ -1,4 +1,5 @@
 var fs = require('fs');
+
 module.exports = function(router, passport){
 
 	router.use(passport.authenticate('bearer', {session: false}));
@@ -10,6 +11,6 @@ module.exports = function(router, passport){
 		});
 	});
 	router.get('/testAPI', function(req,res){
-	res.json({SecretData: "abc123"});
+	res.json({secretData: 'abc123'});
 	});
 }

@@ -17,6 +17,16 @@ module.exports = function(router, passport){
 	});
 
 
+	//mobile stuff
+	router.post('/signup/mobile', passport.authenticate('local-signup'), function(req,res){
+		res.end("Registration Success");
+	});
+
+	//mobile stuffs
+	router.post('/login/mobile', passport.authenticate('local-login'), function(req,res){
+		res.end("Login Success");
+	});
+
 	router.post('/signup', passport.authenticate('local-signup', {
 		successRedirect: '/auth/login',
 		failureRedirect: '/auth/signup',

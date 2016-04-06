@@ -1,7 +1,8 @@
 var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 
-var User = require('../app/models/user');
+var User = require('../app/models/user').User;
+var Token = require('../app/models/user').Token;
 
 module.exports = function(passport) {
 
@@ -70,11 +71,11 @@ module.exports = function(passport) {
 
 	passport.use(new BearerStrategy({},
 		function(token, done){
-			User.findOne({ _id: token }, function(err, user){
-				if(!user)
+			Token.findOne({value: token}).populate('user').exec(function(err, token){
+				if(!token)
 					return done(null, false);
-				return done(null, user);
-			});
+				return done(null, token.user);
+			})
 		}));
 
 };
